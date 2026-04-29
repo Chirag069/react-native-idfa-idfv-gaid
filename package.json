@@ -1,0 +1,17 @@
+{
+  "name": "react-native-idfa-idfv-gaid",
+  "version": "1.0.0",
+  "description": "React Native module to get IDFA, IDFV (iOS) and Google Advertising ID (Android)",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/react-native-idfa-idfv-gaid"
+  },
+  "keywords": ["react-native", "idfa", "idfv", "gaid", "advertising-id", "ios", "android"],
+  "author": "YOUR_NAME",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": ">=0.60.0"
+  }
+}
