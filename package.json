@@ -6,9 +6,18 @@
   "types": "src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chirag069/react-native-idfa-idfv-gaid"
+    "url": "git+https://github.com/Chirag069/react-native-idfa-idfv-gaid.git"
   },
-  "keywords": ["react-native", "idfa", "idfv", "gaid", "advertising-id", "ios", "android"],
+  "homepage": "https://github.com/Chirag069/react-native-idfa-idfv-gaid#readme",
+  "keywords": [
+    "react-native",
+    "idfa",
+    "idfv",
+    "gaid",
+    "advertising-id",
+    "ios",
+    "android"
+  ],
   "author": "Chirag069",
   "license": "MIT",
   "peerDependencies": {
