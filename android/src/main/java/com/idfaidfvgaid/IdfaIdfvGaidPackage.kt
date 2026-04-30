@@ -7,10 +7,12 @@ import com.facebook.react.uimanager.ViewManager
 
 class IdfaIdfvGaidPackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
+        require(reactContext.hasActiveReactInstance()) {
+            "IdfaIdfvGaidPackage: ReactApplicationContext has no active React instance."
+        }
         return listOf(IdfaIdfvGaidModule(reactContext))
     }
 
-    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-        return emptyList()
-    }
+    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> =
+        emptyList()
 }

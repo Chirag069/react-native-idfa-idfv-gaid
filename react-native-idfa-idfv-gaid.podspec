@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.summary      = package["description"]
   s.homepage     = "https://github.com/Chirag069/react-native-idfa-idfv-gaid"
   s.license      = "MIT"
-  s.authors      = { "Chirag069" => "" }
+  s.authors      = { "codingturtle" => "" }
   s.platforms    = { :ios => "12.0" }
   s.source       = { :git => "https://github.com/Chirag069/react-native-idfa-idfv-gaid.git", :tag => "#{s.version}" }
 

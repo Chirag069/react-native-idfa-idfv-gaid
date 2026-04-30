@@ -1,5 +1,5 @@
 {
-  "name": "react-native-idfa-idfv-gaid",
+  "name": "@codingturtle/react-native-idfa-idfv-gaid",
   "version": "1.0.3",
   "description": "React Native module to get IDFA, IDFV (iOS) and Google Advertising ID (Android)",
   "main": "src/index.js",
@@ -18,7 +18,7 @@
     "ios",
     "android"
   ],
-  "author": "Chirag069",
+  "author": "codingturtle",
   "license": "MIT",
   "peerDependencies": {
     "react-native": ">=0.60.0"

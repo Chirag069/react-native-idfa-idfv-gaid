@@ -2,58 +2,45 @@ import { NativeModules, Platform } from 'react-native';
 
 const { IdfaIdfvGaid } = NativeModules;
 
-if (!IdfaIdfvGaid) {
-  console.warn(
-    'react-native-idfa-idfv-gaid: Native module not found. ' +
-    'Make sure to run `pod install` (iOS) or rebuild the project (Android).'
-  );
-}
+const notAvailable = () => Promise.resolve(null);
 
-/**
- * Get IDFA (iOS only)
- * Requires ATT permission to be granted first on iOS 14.5+
- * Returns null if not authorized or on Android
- */
-export const getIDFA = () => {
-  if (Platform.OS !== 'ios') return Promise.resolve(null);
-  return IdfaIdfvGaid.getIDFA();
+const guardedModule = (fn) => {
+  if (!IdfaIdfvGaid) {
+    console.warn(
+      'react-native-idfa-idfv-gaid: Native module not found. ' +
+      'Make sure to run `pod install` (iOS) or rebuild the project (Android).'
+    );
+    return notAvailable;
+  }
+  return fn;
 };
 
-/**
- * Get IDFV (iOS only)
- * Does not require ATT permission
- * Returns null on Android
- */
-export const getIDFV = () => {
-  if (Platform.OS !== 'ios') return Promise.resolve(null);
-  return IdfaIdfvGaid.getIDFV();
-};
+export const getIDFA = Platform.OS === 'ios'
+  ? guardedModule(() => IdfaIdfvGaid.getIDFA())
+  : notAvailable;
 
-/**
- * Get Google Advertising ID (Android only)
- * Returns null on iOS
- */
-export const getGAID = () => {
-  if (Platform.OS !== 'android') return Promise.resolve(null);
-  return IdfaIdfvGaid.getGAID();
-};
+export const getIDFV = Platform.OS === 'ios'
+  ? guardedModule(() => IdfaIdfvGaid.getIDFV())
+  : notAvailable;
 
-/**
- * Get all available IDs for the current platform
- * iOS: returns { idfa, idfv }
- * Android: returns { gaid }
- */
+export const getGAID = Platform.OS === 'android'
+  ? guardedModule(() => IdfaIdfvGaid.getGAID())
+  : notAvailable;
+
 export const getAllIds = async () => {
+  if (!IdfaIdfvGaid) {
+    console.warn('react-native-idfa-idfv-gaid: Native module not found.');
+    return Platform.OS === 'ios' ? { idfa: null, idfv: null } : { gaid: null };
+  }
   if (Platform.OS === 'ios') {
     const [idfa, idfv] = await Promise.all([
       IdfaIdfvGaid.getIDFA(),
       IdfaIdfvGaid.getIDFV(),
     ]);
     return { idfa, idfv };
-  } else {
-    const gaid = await IdfaIdfvGaid.getGAID();
-    return { gaid };
   }
+  const gaid = await IdfaIdfvGaid.getGAID();
+  return { gaid };
 };
 
 export default { getIDFA, getIDFV, getGAID, getAllIds };
