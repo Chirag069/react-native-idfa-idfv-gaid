@@ -1,11 +1,11 @@
-# @codingturtle/react-native-idfa-idfv-gaid
+# react-native-idfa-idfv-gaid
 
 Get **IDFA**, **IDFV** (iOS) and **Google Advertising ID / GAID** (Android) in React Native.
 
 ## Installation
 
 ```bash
-npm install @codingturtle/react-native-idfa-idfv-gaid
+npm install react-native-idfa-idfv-gaid
 ```
 
 ### iOS Setup
@@ -40,7 +40,7 @@ override fun getPackages(): List<ReactPackage> = listOf(
 ## Usage
 
 ```js
-import { getIDFA, getIDFV, getGAID, getAllIds } from '@codingturtle/react-native-idfa-idfv-gaid';
+import { getIDFA, getIDFV, getGAID, getAllIds } from 'react-native-idfa-idfv-gaid';
 
 // iOS only - requires ATT permission first
 const idfa = await getIDFA();
