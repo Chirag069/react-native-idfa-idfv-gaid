@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     permissions:
       security-events: write
       packages: read
@@ -23,9 +23,7 @@ jobs:
       matrix:
         include:
           - language: java-kotlin
-            build-mode: manual
           - language: javascript-typescript
-            build-mode: none
 
     steps:
       - name: Checkout repository
@@ -38,20 +36,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Android SDK
+        if: matrix.language == 'java-kotlin'
+        uses: android-actions/setup-android@v3
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
-
-      - name: Manual build (Android)
-        if: matrix.build-mode == 'manual'
-        working-directory: android
-        run: |
-          # Compile only the library sources — no app module needed
-          find ../android/src -name "*.kt" | xargs kotlinc \
-            -classpath $(find $ANDROID_SDK_ROOT/platforms -name "android.jar" | head -1) \
-            -d /tmp/classes 2>/dev/null || true
+          build-mode: none
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
